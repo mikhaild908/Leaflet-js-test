@@ -24,9 +24,11 @@
   <body>
     <div id="map"></div>
     <script>
-      var map = L.map('map').setView([48.00, -96.00], 8);
+      //var map = L.map('map').setView([48.00, -96.00], 8);
+      var map = L.map('map').setView([48.299, -95.620], 14);
 
-      L.esri.basemapLayer("Gray").addTo(map);
+      //L.esri.basemapLayer("Gray").addTo(map);
+      L.esri.basemapLayer("Streets").addTo(map);
 
     //   var parks = L.esri.featureLayer({
     //     url: "http://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Portland_Parks/FeatureServer/0",
