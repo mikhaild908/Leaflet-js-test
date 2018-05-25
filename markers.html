@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.js"></script>
+    
+    <style>
+      html, body {
+        width : 100%;
+        height : 100%;
+      }
+
+      #map {
+        /*width: 800px;
+        height: 600px;*/
+        height: 500px;
+        border-style: solid;
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+        <div id="firstColumn" class="col-sm-3" style="background-color:lavender;"></div>
+        <div id="secondColumn" class="col-sm-3" style="background-color:lavender;"></div>
+        <div class="col-sm-6" id="map"></div>
+    </div>
+    
+    <script>
+        function addMarkerToMap(name, lat, lon) {
+            return L.marker([lat, lon]).addTo(map).bindPopup(name);
+        }
+
+        function nameClicked(id){
+            markers[id].openPopup();
+        }
+
+        function addLocationsToTable(id, name) {
+            var column = "firstColumn";
+            let span = document.createElement("span");
+            //span.onclick = nameClicked;
+            //span.innerText = name;
+            span.innerHTML = `<button onclick="nameClicked(${id})">${name}</button>`;
+
+            if(id % 2 == 0){
+                column = "secondColumn";
+            }
+            
+            document.getElementById(column).appendChild(span);
+        }
+
+        let poi = [
+            // {
+            //     name: "Children's Museum of Phoenix",
+            //     lat: 33.4504,
+            //     lon: -112.0646
+            // },
+            {
+                name: "Arizona Science Center",
+                lat: 33.4487,
+                lon: -112.0667
+            },
+            {
+                name: "Heard Museum",
+                lat: 33.4725,
+                lon: -112.0722
+            }
+        ];
+
+        let markers = [];
+
+        let map = L.map('map').setView([33.5467, -112.0456], 10);
+
+        let layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        map.addLayer(layer);
+
+        for(let i = 0; i < poi.length; i++) {
+            let marker = addMarkerToMap(poi[i].name, poi[i].lat, poi[i].lon);
+            markers.push(marker);
+            addLocationsToTable(i, poi[i].name);
+        }
+    </script>
+  </body>
+</html>
